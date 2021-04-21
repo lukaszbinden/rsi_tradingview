@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-def rsi_tradingview(ohlc: pd.DataFrame, period: int = 14):
+def rsi_tradingview(ohlc: pd.DataFrame, period: int = 14, round_rsi: bool = True):
     """ Implements the RSI indicator as defined by TradingView on March 15, 2021.
         The TradingView code is as follows:
         //@version=4
@@ -19,6 +19,7 @@ def rsi_tradingview(ohlc: pd.DataFrame, period: int = 14):
 
     :param ohlc:
     :param period:
+    :param round_rsi:
     :return: an array with the RSI indicator values
     """
 
@@ -35,5 +36,5 @@ def rsi_tradingview(ohlc: pd.DataFrame, period: int = 14):
 
     rsi = np.where(up == 0, 0, np.where(down == 0, 100, 100 - (100 / (1 + up / down))))
 
-    return np.round(rsi, 2)
+    return np.round(rsi, 2) if round_rsi else rsi
 
